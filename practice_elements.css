@@ -1,0 +1,90 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(56, 56, 56);
+    
+    align-items: center;
+    
+}
+
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grid {
+    
+    display: grid;
+    grid-template-rows: repeat(6, 84px);
+    grid-template-columns: repeat(5,84px);
+    gap: 7px;
+    margin-bottom: 100px;
+}
+
+#keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.kb-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.key{
+    width: 52px;
+    height: 70px;
+    border: 0;
+    border-radius: 6px;
+    background: #808384;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.key-wide{
+    width: 90px;
+    font-size: 14px;
+}
+
+.tile {
+    height: 80px;
+    width: 80px;
+    border-style: solid;
+    border-color:#808384;
+    border-width: 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5.0rem;
+    color:beige;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+header {
+    min-height: 10vh;
+    font-size: 5.0rem;
+    color:beige;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+main {
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    
+    
+}

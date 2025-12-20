@@ -10,9 +10,15 @@
 }
 
 #grid {
-    display: grid;
-    grid-template-columns: repeat(5, 50px);
-    gap: 8px;
+    display: grid; /* #grid becomes a CSS grid container - all children of #grid are now items in the grid */
+    grid-template-columns: repeat(5, 50px); /* The grid has 5 columns of items, 
+                                               each item is 50 pixels wide (think boxes)
+                                               [50px][50px][50px][50px][50px]
+                                               Rows are not explicitly defined, rows grow as needed */
+    gap: 16px; /* Between rows and columns there is 8 pixels of space */
+    min-height: 25vh;
+    margin: 0 auto; /* Give this element equal empty space on the left and right */
+    margin: 400px auto; /* space above and below the grid  */
 }
 
 .row {
@@ -43,4 +49,16 @@
     display: grid;
     gap: 8px;
     margin-top: 16px;
+    min-height: 25vh;
+}
+
+/* IMPORTANT RULE: Parents control the layout of their children */
+/* Flex has a main axis and a corss axis. justify-content works on the main axis. align-items works on the croxx axis */
+
+body {
+    display: flex; /* puts children in a flexible row (main axis is left to right) */
+    flex-direction: column; /* children now stack instead of creating a row (main axis now top to bottom) */
+    align-items: center; /* centers children horizontally */
+    justify-content: center;
+    gap: 16px;
 }
