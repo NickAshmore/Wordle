@@ -1,27 +1,29 @@
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: rgb(56, 56, 56);
-    
-    align-items: center;
+    height: 100dvh;
+    display: grid;
+    grid-template-rows: 4% 18%;
+    overflow: hidden;
+    justify-items: center;    
+}
+
+main {
     
 }
 
 #game {
     display: flex;
     flex-direction: column;
+    gap: 40px;
     align-items: center;
 }
 
 #grid {
     
     display: grid;
-    grid-template-rows: repeat(6, 84px);
-    grid-template-columns: repeat(5,84px);
-    gap: 7px;
-    margin-bottom: 100px;
+    grid-template-rows: repeat(6, 42px);
+    grid-template-columns: repeat(5,42px);
+    gap: 3px;
 }
 
 #keyboard {
@@ -59,8 +61,8 @@ body {
 }
 
 .tile {
-    height: 80px;
-    width: 80px;
+    height: 39px;
+    width: 39px;
     border-style: solid;
     border-color:#808384;
     border-width: 2px;
@@ -68,23 +70,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 5.0rem;
-    color:beige;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color:black;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 header {
-    min-height: 10vh;
     font-size: 5.0rem;
-    color:beige;
+    color: black;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     
 }
 
-main {
-    min-height: 20vh;
-    display: flex;
-    flex-direction: column;
-    
-    
-}
