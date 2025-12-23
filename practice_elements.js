@@ -34,16 +34,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // WORD LIST/SELECTION    Note: Hardcoded 5 letter words despite word length modularity                           
     const word_set = new Set([
-        "HELLO", "CONCH",
-        "APPLE", "TABLE", "CHAIR", "BREAD", "WATER",
-        "LEVEL", "EERIE", "ARRAY", "POPPY",
-        "COUCH", "TORCH", "TOUCH", "BOTCH",
-        "JAZZY", "FUZZY", "QUICK", "ZESTY", "XENON",
-        "CRYPT", "GLYPH", "NYMPH", "SQUAD", "VIVID"
+        // "HELLO", "CONCH",
+        // "APPLE", "TABLE", "CHAIR", "BREAD", "WATER",
+        // "LEVEL", "EERIE", "ARRAY", "POPPY",
+        // "COUCH", "TORCH", "TOUCH", "BOTCH",
+        // "JAZZY", "FUZZY", "QUICK", "ZESTY", "XENON",
+        // "CRYPT", "GLYPH", "NYMPH", "SQUAD", "VIVID"
+        "POPPY", "PUPPY", "POOPY", "SNOOP", "SNOTS", "NNNNN"
     ]);
     const word_array = Array.from(word_set);
     const index = Math.floor(Math.random() * word_array.length);
-    const word = word_array[index]; // TODO: Make this hidden in the frontend
+    // const word = word_array[index]; // TODO: Make this hidden in the frontend
+    const word = "SNOOP"
     const letter_set = new Set(word);
 
     let guess = "";
@@ -74,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 // Color updates are uniform across incorrect and correct guesses,
                 // so I brought it outside the if statements 
+                let guessed_flag = false;
                 for (let i = 0; i < NUMBER_OF_LETTERS; i++) {
                     let rast_ind = get_raster(row, i); 
                     let tile = tile_array[rast_ind];
@@ -84,21 +87,22 @@ document.addEventListener("DOMContentLoaded", function() {
                         html_key_ranks[key_index].classList.remove("absent","present","correct");
                         html_key_ranks[key_index].classList.add("correct");
                         guessed_set.add(guess[i]);
+                        guessed_flag = true;
                     } else if (letter_set.has(guess[i])) {
-                        // Color tiles and keys yellow (.present)
-                        if (guessed_set.has(guess[i])) {
+                        if (guessed_set.has(guess[i]) && guessed_flag == true) {
                             // Don't color yellow if already guessed, color grey
                             // Since this fell through the correctness check we don't need to worry about
                             // overriding correct letters
                             tile.classList.add("absent"); // There is no additional letter here
                             continue;
                         }
+                        // Color tiles and keys yellow (.present)
                         tile.classList.add("present");
                         html_key_ranks[key_index].classList.add("present");
                     } else {
                         // tiles and keys grey (.absent)
                         tile.classList.add("absent");
-                        html_key_ranks[key_index].classList.add("absent");
+                        html_key_ranks[key_index].classList.add("absent_key");
                         
                     }
                 }

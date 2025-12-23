@@ -97,3 +97,8 @@ header {
     background-color: #808384;
     border-color: #808384;
 }
+
+.absent_key {
+    background-color: rgb(50,50,50);
+    border-color: rgb(50,50,50);
+}
