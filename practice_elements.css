@@ -83,3 +83,17 @@ header {
     
 }
 
+.correct {
+    background-color: green;
+    border-color: green;
+}
+
+.present {
+    background-color: gold;
+    border-color: gold;
+}
+
+.absent {
+    background-color: #808384;
+    border-color: #808384;
+}
