@@ -29,23 +29,20 @@ document.addEventListener("DOMContentLoaded", function() {
         ["BACKSPACE", 27]
     ];
     const key_index_map = new Map(keyIndexPairs);
-    const guessed_set = new Set();
-
 
     // WORD LIST/SELECTION    Note: Hardcoded 5 letter words despite word length modularity                           
     const word_set = new Set([
-        // "HELLO", "CONCH",
-        // "APPLE", "TABLE", "CHAIR", "BREAD", "WATER",
-        // "LEVEL", "EERIE", "ARRAY", "POPPY",
-        // "COUCH", "TORCH", "TOUCH", "BOTCH",
-        // "JAZZY", "FUZZY", "QUICK", "ZESTY", "XENON",
-        // "CRYPT", "GLYPH", "NYMPH", "SQUAD", "VIVID"
-        "POPPY", "PUPPY", "POOPY", "SNOOP", "SNOTS", "NNNNN"
+        "HELLO", "CONCH",
+        "APPLE", "TABLE", "CHAIR", "BREAD", "WATER",
+        "LEVEL", "EERIE", "ARRAY", "POPPY",
+        "COUCH", "TORCH", "TOUCH", "BOTCH",
+        "JAZZY", "FUZZY", "QUICK", "ZESTY", "XENON",
+        "CRYPT", "GLYPH", "NYMPH", "SQUAD", "VIVID", "PPPPP"
     ]);
     const word_array = Array.from(word_set);
     const index = Math.floor(Math.random() * word_array.length);
     // const word = word_array[index]; // TODO: Make this hidden in the frontend
-    const word = "SNOOP"
+    const word = "APPLE";
     const letter_set = new Set(word);
 
     let guess = "";
@@ -70,13 +67,19 @@ document.addEventListener("DOMContentLoaded", function() {
             if (col != NUMBER_OF_LETTERS) {
                 return; // TODO: Add animation and/or popup saying there are not enough letters
             }
-
+            // Problem: If the word is Ready, and I guess Eerie, the first 'E' is colored yellow when it should be grey. 
+            // If the guess has a letter in the correct spot, duplicates of this letter which are out of place should be grey.
+            // If the guess does not have this letter in the correct spot, all instances of this letter should be colored yellow. 
+            // Create a set of letters which are correctly aligned. Gate the present if condition with !guessed.set.has(key)
+            const guessed_set = new Set();
+            for (let i = 0; i < NUMBER_OF_LETTERS; i++) {
+                if (guess[i] == word[i]) {
+                    guessed_set.add(guess[i]);
+                }
+            }
             if (word_set.has(guess)) {
                 console.log("This guess is in the word list.");
                 
-                // Color updates are uniform across incorrect and correct guesses,
-                // so I brought it outside the if statements 
-                let guessed_flag = false;
                 for (let i = 0; i < NUMBER_OF_LETTERS; i++) {
                     let rast_ind = get_raster(row, i); 
                     let tile = tile_array[rast_ind];
@@ -86,16 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         tile.classList.add("correct");
                         html_key_ranks[key_index].classList.remove("absent","present","correct");
                         html_key_ranks[key_index].classList.add("correct");
-                        guessed_set.add(guess[i]);
-                        guessed_flag = true;
-                    } else if (letter_set.has(guess[i])) {
-                        if (guessed_set.has(guess[i]) && guessed_flag == true) {
-                            // Don't color yellow if already guessed, color grey
-                            // Since this fell through the correctness check we don't need to worry about
-                            // overriding correct letters
-                            tile.classList.add("absent"); // There is no additional letter here
-                            continue;
-                        }
+                    } else if (letter_set.has(guess[i]) && !guessed_set.has(guess[i])) {
                         // Color tiles and keys yellow (.present)
                         tile.classList.add("present");
                         html_key_ranks[key_index].classList.add("present");
