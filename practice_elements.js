@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ["BACKSPACE", 27]
     ];
     const key_index_map = new Map(keyIndexPairs);
+    const guessed_set = new Set();
 
 
     // WORD LIST/SELECTION    Note: Hardcoded 5 letter words despite word length modularity                           
@@ -80,9 +81,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (guess[i] == word[i]) {
                         // Color tiles and keys green (.correct)
                         tile.classList.add("correct");
+                        html_key_ranks[key_index].classList.remove("absent","present","correct");
                         html_key_ranks[key_index].classList.add("correct");
+                        guessed_set.add(guess[i]);
                     } else if (letter_set.has(guess[i])) {
                         // Color tiles and keys yellow (.present)
+                        if (guessed_set.has(guess[i])) {
+                            // Don't color yellow if already guessed, color grey
+                            // Since this fell through the correctness check we don't need to worry about
+                            // overriding correct letters
+                            tile.classList.add("absent"); // There is no additional letter here
+                            continue;
+                        }
                         tile.classList.add("present");
                         html_key_ranks[key_index].classList.add("present");
                     } else {
